@@ -1,0 +1,15 @@
+{
+  "name": "fer-ical",
+  "version": "1.0.0",
+  "description": "mat1 fer ical separator",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mat1jaczyyy",
+  "dependencies": {
+    "axios": "^1.1.2",
+    "express": "^4.18.2",
+    "ical2json": "^3.1.2"
+  }
+}
