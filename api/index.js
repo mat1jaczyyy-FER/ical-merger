@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 
 const axios = require('axios');
 const ical2json = require('ical2json');
@@ -23,4 +22,4 @@ async function filter(req, res, predicate) {
 app.get('/predavanja', async (req, res) => filter(req, res, i => i.SUMMARY.includes('predavanje')));
 app.get('/ostalo', async (req, res) => filter(req, res, i => !i.SUMMARY.includes('predavanje')));
 
-app.listen(port);
+module.exports(app)
