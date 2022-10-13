@@ -22,4 +22,4 @@ async function filter(req, res, predicate) {
 app.get('/api/predavanja', async (req, res) => filter(req, res, i => i.SUMMARY.includes('predavanje')));
 app.get('/api/ostalo', async (req, res) => filter(req, res, i => !i.SUMMARY.includes('predavanje')));
 
-module.exports(app)
+module.exports = app;
