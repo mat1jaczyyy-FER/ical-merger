@@ -1,6 +1,6 @@
 {
     "rewrites": [{
-        "source": "/ostalo",
-        "destination": "/ostalo"
+        "source": "/api/(.*)",
+        "destination": "/api"
     }]
 }

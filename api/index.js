@@ -19,7 +19,7 @@ async function filter(req, res, predicate) {
     res.send(ical2json.revert(ical));
 }
 
-app.get('/predavanja', async (req, res) => filter(req, res, i => i.SUMMARY.includes('predavanje')));
-app.get('/ostalo', async (req, res) => filter(req, res, i => !i.SUMMARY.includes('predavanje')));
+app.get('/api/predavanja', async (req, res) => filter(req, res, i => i.SUMMARY.includes('predavanje')));
+app.get('/api/ostalo', async (req, res) => filter(req, res, i => !i.SUMMARY.includes('predavanje')));
 
 module.exports = app;
