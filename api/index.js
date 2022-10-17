@@ -19,7 +19,13 @@ async function filter(req, res, predicate) {
     res.send(ical2json.revert(ical));
 }
 
-app.get('/api/predavanja', async (req, res) => filter(req, res, i => i.SUMMARY.includes('predavanje')));
-app.get('/api/ostalo', async (req, res) => filter(req, res, i => !i.SUMMARY.includes('predavanje')));
+function condition(i) {
+    return !i.SUMMARY.includes('predavanje') ||
+        i.UID.includes("c5a8eb90c965f158afaef0647e6020ed@www.fer.unizg.hr"); // inzenjersko dokumentiranje prvo predavanje
+}
+
+app.get('/api/predavanja', async (req, res) => filter(req, res, i => !condition(i)));
+app.get('/api/ostalo', async (req, res) => filter(req, res, condition));
 
 module.exports = app;
+//app.listen(3000);
