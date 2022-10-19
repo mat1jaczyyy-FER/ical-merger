@@ -20,8 +20,7 @@ async function filter(req, res, predicate) {
 }
 
 function condition(i) {
-    return !i.SUMMARY.includes('predavanje') ||
-        i.UID.includes("c5a8eb90c965f158afaef0647e6020ed@www.fer.unizg.hr"); // inzenjersko dokumentiranje prvo predavanje
+    return !i.SUMMARY.includes('predavanje') && !i.SUMMARY.includes("Inženjersko dokumentiranje");
 }
 
 app.get('/api/predavanja', async (req, res) => filter(req, res, i => !condition(i)));
