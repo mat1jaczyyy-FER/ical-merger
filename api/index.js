@@ -19,12 +19,24 @@ async function filter(req, res, predicate) {
     res.send(ical2json.revert(ical));
 }
 
-function condition(i) {
-    return !i.SUMMARY.includes('predavanje') && !i.SUMMARY.includes("Inženjersko dokumentiranje");
+// Ispit detector helper
+const ispit = ["završni", "pismeni", "ispit", "međuispit"];
+
+// Main filter of completely unwanted events (inzdok)
+function mainFilter(i) {
+    if (i.SUMMARY.includes("Inženjersko dokumentiranje")) {
+        return ispit.some(j => i.SUMMARY.toLowerCase().includes(j));
+    }
+    return true;
 }
 
-app.get('/api/predavanja', async (req, res) => filter(req, res, i => !condition(i)));
-app.get('/api/ostalo', async (req, res) => filter(req, res, condition));
+// What's important? Sve osim predavanja :b1:
+function condition(i) {
+    return !i.SUMMARY.includes('predavanje');
+}
+
+app.get('/api/predavanja', async (req, res) => filter(req, res, i => mainFilter(i) && !condition(i)));
+app.get('/api/ostalo', async (req, res) => filter(req, res, i => mainFilter(i) && condition(i)));
 
 module.exports = app;
 //app.listen(3000);
