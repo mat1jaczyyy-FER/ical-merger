@@ -6,7 +6,10 @@ const ical2json = require('ical2json');
 const url = require('url');
 
 async function filter(req, res, predicate) {
-    var ical = ical2json.convert((await axios.get(`https://www.fer.unizg.hr/_download/calevent/mycal.ics?${url.parse(req.url).query}`)).data);
+    var query = url.parse(req.url).query;
+    var ical = ical2json.convert((await axios.get(`https://www.fer.unizg.hr/_download/calevent/mycal.ics?${query}`)).data);
+    var ferko = ical2json.convert((await axios.get(`http://ferko.fer.hr/ferko/ical/ICalUser.action?${query}`)).data);
+    ical.VCALENDAR[0].VEVENT.push(...ferko.VCALENDAR[0].VEVENT);
     let events = [];
     for (var i of ical.VCALENDAR[0].VEVENT) {
         if (predicate(i)) {
